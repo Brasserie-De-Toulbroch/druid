@@ -50,11 +50,8 @@
         <item row="1" column="1" rowspan="5">
          <widget class="QLCDNumber" name="_time_lcd"/>
         </item>
-        <item row="1" column="0">
-         <layout class="QFormLayout" name="formLayout">
-          <property name="fieldGrowthPolicy">
-           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-          </property>
+        <item row="2" column="0">
+         <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
@@ -77,17 +74,23 @@
           </item>
          </layout>
         </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="_time_start">
+        <item row="4" column="0">
+         <widget class="QPushButton" name="_time_stop">
           <property name="text">
-           <string>Start</string>
+           <string>Stop</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QPushButton" name="_time_stop">
+         <widget class="QPushButton" name="_time_start">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
-           <string>Stop</string>
+           <string>Start</string>
           </property>
          </widget>
         </item>
@@ -95,20 +98,20 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox">
-       <property name="title">
-        <string>Temperature</string>
-       </property>
-       <zorder>groupBox_6</zorder>
-       <zorder>groupBox_6</zorder>
-       <zorder>groupBox_6</zorder>
-      </widget>
-     </item>
-     <item>
       <widget class="QGroupBox" name="groupBox_2">
        <property name="title">
         <string>Volume</string>
        </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Notes</string>
+       </property>
+       <zorder>groupBox_6</zorder>
+       <zorder>groupBox_6</zorder>
+       <zorder>groupBox_6</zorder>
       </widget>
      </item>
     </layout>

@@ -1,38 +1,46 @@
+#include <iostream>
+
 #include <QApplication>
 #include <QFile>
 #include <QTextStream>
+#include <QFontDatabase>
 
 #include <window.h>
 
-int main(int argc, char **argv)
+int main( int argc, char **argv )
 {
-    QApplication app (argc, argv);
+    // init application
+    QApplication app( argc, argv );
 
-    QFile f(":qdarkstyle/style.qss");
-    if (!f.exists())
+    // load font
+    const int id = QFontDatabase::addApplicationFont( ":fonts/lobster.ttf" );
+    if ( id != -1 )
     {
-        printf("Unable to set stylesheet, file not found\n");
+        const QString family = QFontDatabase::applicationFontFamilies( id ).at( 0 );
+        const QFont font( family, 16 );
+        app.setFont( font );
     }
     else
     {
-        f.open(QFile::ReadOnly | QFile::Text);
-        QTextStream ts(&f);
-        qApp->setStyleSheet(ts.readAll());
+        std::cerr << "Unable to set lobster font." << std::endl;
     }
 
+    // load stylesheet
+    QFile f( ":qdarkstyle/style.qss" );
+    if ( f.exists() )
+    {
+        f.open( QFile::ReadOnly | QFile::Text );
+        QTextStream ts( &f );
+        app.setStyleSheet( ts.readAll() );
+    }
+    else
+    {
+        std::cerr << "Unable to set stylesheet, file not found." << std::endl;
+    }
+
+    // create main window
     DruidWindow window;
     window.show();
-
-    // Druid druid;
-    // druid.show();
-
-    // QWidget window;
-    // window.setFixedSize(100, 50);
-
-    // QPushButton *button = new QPushButton("Hello World", &window);
-    // button->setGeometry(10, 10, 80, 30);
-
-    // window.show();
 
     return app.exec();
 }
