@@ -6,6 +6,7 @@
 #include "timer.h"
 #include "volume.h"
 #include "notes.h"
+#include "menu.h"
 
 class DruidCentralWidget: public QWidget, public Ui::DruidCentralWidget
 {
@@ -18,4 +19,5 @@ class DruidCentralWidget: public QWidget, public Ui::DruidCentralWidget
         DruidTimer _timer;
         DruidVolume _volume;
         DruidNotes _notes;
+        DruidMenu _menu;
 };

@@ -5,6 +5,7 @@ set(DRUID_GUI_SRCS
     timer.cpp
     volume.cpp
     notes.cpp
+    menu.cpp
 )
 
 add_executable(druid ${DRUID_GUI_SRCS} ${PROJECT_SOURCE_DIR}/resources/style.qrc)
