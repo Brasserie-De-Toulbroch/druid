@@ -8,4 +8,4 @@ set(DRUID_GUI_SRCS
 )
 
 add_executable(druid ${DRUID_GUI_SRCS} ${PROJECT_SOURCE_DIR}/resources/style.qrc)
-target_link_libraries(druid Qt5::Widgets)
+target_link_libraries(druid Qt5::Widgets druid_db)
