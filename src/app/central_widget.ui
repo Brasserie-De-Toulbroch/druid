@@ -103,7 +103,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_7">
+      <widget class="QLineEdit" name="_title">
        <property name="font">
         <font>
          <pointsize>30</pointsize>

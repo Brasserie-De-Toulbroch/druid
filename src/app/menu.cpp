@@ -4,10 +4,14 @@
 
 DruidMenu::DruidMenu()
 {
-    QHBoxLayout *layout = new QHBoxLayout();
+    setupUi();
 
-    _edit = new QPushButton( "Edit" );
-    layout->addWidget( _edit );
+    connect( _save, &QPushButton::clicked, this, &DruidMenu::save );
+}
+
+void DruidMenu::setupUi()
+{
+    QHBoxLayout *layout = new QHBoxLayout();
 
     _save = new QPushButton( "Save" );
     layout->addWidget( _save );
