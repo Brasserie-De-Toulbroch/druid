@@ -21,7 +21,7 @@
     <number>40</number>
    </property>
    <item row="2" column="0">
-    <widget class="QPushButton" name="_time_stop">
+    <widget class="QPushButton" name="_stop">
      <property name="text">
       <string>Stop</string>
      </property>
@@ -37,7 +37,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSpinBox" name="_time_hour"/>
+      <widget class="QSpinBox" name="_hour"/>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_4">
@@ -47,19 +47,19 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QSpinBox" name="_time_minutes"/>
+      <widget class="QSpinBox" name="_minutes"/>
      </item>
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="QPushButton" name="_time_start">
+    <widget class="QPushButton" name="_start">
      <property name="text">
       <string>Start</string>
      </property>
     </widget>
    </item>
    <item row="0" column="2" rowspan="4">
-    <widget class="QLCDNumber" name="_time_lcd"/>
+    <widget class="QLCDNumber" name="_lcd"/>
    </item>
   </layout>
  </widget>

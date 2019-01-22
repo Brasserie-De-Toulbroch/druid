@@ -6,34 +6,34 @@ DruidTimer::DruidTimer()
 {
     setupUi( this );
 
-    _time_lcd->setDigitCount(8);
+    _lcd->setDigitCount(8);
 
-    connect( _time_start, &QPushButton::clicked, this, &DruidTimer::time_start );
-    connect( _time_stop, &QPushButton::clicked, this, &DruidTimer::time_stop );
+    connect( _start, &QPushButton::clicked, this, &DruidTimer::start );
+    connect( _stop, &QPushButton::clicked, this, &DruidTimer::stop );
 }
 
-void DruidTimer::time_start()
+void DruidTimer::start()
 {
-    const int hours = _time_hour->value();
-    const int minutes = _time_minutes->value();
+    const int hours = _hour->value();
+    const int minutes = _minutes->value();
     const int msecs = ( hours * 60 * 60 + minutes * 60 ) * 1000;
 
-    _time_lcd->display( DruidTimer::msecs_to_string( msecs ) );
-    QTimer::singleShot( 1000, this, &DruidTimer::time_update );
+    _lcd->display( DruidTimer::msecs_to_string( msecs ) );
+    QTimer::singleShot( 1000, this, &DruidTimer::update );
     _timer.start( msecs );
     _timer_stop = false;
 }
 
-void DruidTimer::time_update()
+void DruidTimer::update()
 {
     if ( ! _timer_stop )
     {
         const int msecs = _timer.remainingTime();
-        _time_lcd->display( DruidTimer::msecs_to_string( msecs ) );
+        _lcd->display( DruidTimer::msecs_to_string( msecs ) );
 
         if ( msecs/1000 > 0 )
         {
-            QTimer::singleShot(1000, this, &DruidTimer::time_update);
+            QTimer::singleShot(1000, this, &DruidTimer::update);
         }
         else
         {
@@ -42,7 +42,7 @@ void DruidTimer::time_update()
     }
 }
 
-void DruidTimer::time_stop()
+void DruidTimer::stop()
 {
     _timer_stop = true;
 }

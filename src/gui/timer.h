@@ -13,9 +13,9 @@ class DruidTimer: public QGroupBox, public Ui::DruidTimer
         DruidTimer();
 
     private:
-        void time_start();
-        void time_stop();
-        void time_update();
+        void start();
+        void stop();
+        void update();
 
         static QString msecs_to_string( int millisecondes );
 
