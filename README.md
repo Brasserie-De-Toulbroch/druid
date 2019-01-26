@@ -1,5 +1,11 @@
 # Druid
 
+## Hook
+
+````
+$ ln -s ../../scripts/pre-commit-clang-format .git/hooks/
+````
+
 ## Cross-Compiling
 
 ````

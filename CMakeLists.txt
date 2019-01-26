@@ -8,5 +8,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5Widgets CONFIG REQUIRED)
+find_path(SQLITE3_INCLUDE_DIR NAMES sqlite3.h)
+find_library(SQLITE3_LIBRARY NAMES sqlite)
 
 ADD_SUBDIRECTORY(src)

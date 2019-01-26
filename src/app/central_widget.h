@@ -1,23 +1,27 @@
 #pragma once
 
+#include <QPointer>
 #include <QWidget>
 
-#include "ui_central_widget.h"
-#include "timer.h"
-#include "volume.h"
-#include "notes.h"
+#include "db/db.h"
 #include "menu.h"
+#include "notes.h"
+#include "timer.h"
+#include "ui_central_widget.h"
+#include "volume.h"
 
-class DruidCentralWidget: public QWidget, public Ui::DruidCentralWidget
-{
-    Q_OBJECT
+class DruidCentralWidget : public QWidget, public Ui::DruidCentralWidget {
+  Q_OBJECT
 
-    public:
-        DruidCentralWidget();
+ public:
+  DruidCentralWidget(const DruidDb* const db);
 
-    private:
-        DruidTimer _timer;
-        DruidVolume _volume;
-        DruidNotes _notes;
-        DruidMenu _menu;
+ private:
+  void save();
+
+  DruidTimer _timer;
+  DruidVolume _volume;
+  DruidNotes _notes;
+  DruidMenu _menu;
+  const DruidDb* const _db;
 };
