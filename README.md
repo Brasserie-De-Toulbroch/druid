@@ -3,7 +3,7 @@
 ## Hook
 
 ````
-$ ln -s ../../scripts/pre-commit-clang-format .git/hooks/
+$ ln -s ../../scripts/pre-commit-clang-format .git/hooks/pre-commit
 ````
 
 ## Cross-Compiling
