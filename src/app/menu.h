@@ -1,22 +1,21 @@
 #pragma once
 
-#include <QWidget>
 #include <QPushButton>
+#include <QWidget>
 
-class DruidMenu : public QWidget
-{
-    Q_OBJECT
+class DruidMenu : public QWidget {
+  Q_OBJECT
 
-    public:
-        DruidMenu();
+ public:
+  DruidMenu();
 
-    signals:
-        void save();
+ signals:
+  void save();
+  void load();
 
-    private:
-        void setupUi();
+ private:
+  void setupUi();
 
-        QPushButton *_load;
-        QPushButton *_save;
-        QPushButton *_edit;
+  QPushButton *_load;
+  QPushButton *_save;
 };

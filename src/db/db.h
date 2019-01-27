@@ -17,7 +17,9 @@ class DruidDb {
   bool close();
 
   DruidRecipe recipe(const QString &title) const;
-  bool add_recipe(const DruidRecipe &recipe) const;
+  bool recipe_exists(const QString &title) const;
+  bool recipe_add(const DruidRecipe &recipe) const;
+  bool recipe_update(const DruidRecipe &recipe) const;
 
   bool exec(const QString &sql) const;
 

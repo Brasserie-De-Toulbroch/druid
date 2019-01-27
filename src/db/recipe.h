@@ -11,6 +11,10 @@ class DruidRecipe {
   void setTitle(const QString &title);
   QString title() const;
 
+  void setNotes(const QString &notes);
+  QString notes() const;
+
  private:
   QString _title;
+  QString _notes;
 };

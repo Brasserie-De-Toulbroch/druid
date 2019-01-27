@@ -17,7 +17,8 @@ bool DruidDb::open(const QString &filename) {
 }
 
 bool DruidDb::init() const {
-  const QString sql = QString("CREATE TABLE %1(title TEXT);").arg(_table);
+  const QString sql =
+      QString("CREATE TABLE %1(title TEXT, notes TEXT);").arg(_table);
   exec(sql);
   return is_ready();
 }
@@ -25,9 +26,8 @@ bool DruidDb::init() const {
 DruidRecipe DruidDb::recipe(const QString &title) const {
   DruidRecipe recipe;
 
-  const QString sql =
-      QString("SELECT title FROM %1 where title = '%2'").arg(_table, title);
-  std::cout << sql.toStdString() << std::endl;
+  const QString sql = QString("SELECT title, notes FROM %1 where title = '%2'")
+                          .arg(_table, title);
 
   sqlite3_stmt *stmt;
   if (sqlite3_prepare_v2(_db, sql.toStdString().c_str(), -1, &stmt, NULL) !=
@@ -45,6 +45,12 @@ DruidRecipe DruidDb::recipe(const QString &title) const {
       const QString title((char *)sqlite3_column_text(stmt, 0));
       recipe.setTitle(title);
     }
+
+    // notes
+    if (column == 1) {
+      const QString notes((char *)sqlite3_column_text(stmt, 0));
+      recipe.setNotes(notes);
+    }
   }
 
   if (ret_code != SQLITE_DONE) {
@@ -56,9 +62,50 @@ DruidRecipe DruidDb::recipe(const QString &title) const {
   return recipe;
 }
 
-bool DruidDb::add_recipe(const DruidRecipe &recipe) const {
+bool DruidDb::recipe_exists(const QString &title) const {
+  bool exist = false;
+
   const QString sql =
-      QString("INSERT INTO %1 VALUES('%2')").arg(_table, recipe.title());
+      QString("SELECT title FROM %1 where title = '%2'").arg(_table, title);
+
+  sqlite3_stmt *stmt;
+  if (sqlite3_prepare_v2(_db, sql.toStdString().c_str(), -1, &stmt, NULL) !=
+      SQLITE_OK) {
+    std::cerr << "ERROR: " << sqlite3_errmsg(_db) << std::endl;
+    sqlite3_finalize(stmt);
+    return exist;
+  }
+
+  int ret_code = 0;
+  int column = 0;
+  std::cout << sql.toStdString() << std::endl;
+  while ((ret_code = sqlite3_step(stmt)) == SQLITE_ROW) {
+    // title
+    if (column == 0) {
+      exist = true;
+    }
+  }
+
+  std::cout << exist << std::endl;
+
+  if (ret_code != SQLITE_DONE) {
+    std::cerr << "ERROR: " << sqlite3_errmsg(_db) << std::endl;
+  }
+
+  sqlite3_finalize(stmt);
+
+  return exist;
+}
+
+bool DruidDb::recipe_add(const DruidRecipe &recipe) const {
+  const QString sql = QString("INSERT INTO %1 VALUES('%2', '%3')")
+                          .arg(_table, recipe.title(), recipe.notes());
+  exec(sql);
+}
+
+bool DruidDb::recipe_update(const DruidRecipe &recipe) const {
+  const QString sql = QString("UPDATE %1 SET notes='%2' WHERE title='%3'")
+                          .arg(_table, recipe.notes(), recipe.title());
   exec(sql);
 }
 

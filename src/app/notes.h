@@ -4,10 +4,11 @@
 
 #include "ui_notes.h"
 
-class DruidNotes: public QGroupBox, public Ui::DruidNotes
-{
-    Q_OBJECT
+class DruidNotes : public QGroupBox, public Ui::DruidNotes {
+  Q_OBJECT
 
-    public:
-        DruidNotes();
+ public:
+  DruidNotes();
+
+  QString text() const;
 };

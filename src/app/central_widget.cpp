@@ -12,20 +12,26 @@ DruidCentralWidget::DruidCentralWidget(const DruidDb* const db) : _db(db) {
   _right_layout->addWidget(&_notes);
 
   connect(&_menu, &DruidMenu::save, this, &DruidCentralWidget::save);
+  connect(&_menu, &DruidMenu::load, this, &DruidCentralWidget::load);
 }
 
+void DruidCentralWidget::load() {}
+
 void DruidCentralWidget::save() {
-  const QString title = _title->text();
-  DruidRecipe recipe = _db->recipe(title);
+  const DruidRecipe recipe = currentRecipe();
 
-  if (!recipe.is_valid()) {
-    recipe.setTitle(title);
-    _db->add_recipe(recipe);
+  if (!_db->recipe_exists(recipe.title())) {
+    _db->recipe_add(recipe);
   } else {
-    // _db->update_recipe( recipe );
-    std::cout << "UPDATE recipe" << std::endl;
+    _db->recipe_update(recipe);
   }
+}
 
-  // const QString sql = QString("insert into recipes values('%1')").arg(title);
-  // _db->exec(sql);
+DruidRecipe DruidCentralWidget::currentRecipe() const {
+  DruidRecipe recipe;
+
+  recipe.setTitle(_title->text());
+  recipe.setNotes(_notes.text());
+
+  return recipe;
 }

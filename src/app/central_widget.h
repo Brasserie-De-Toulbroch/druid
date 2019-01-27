@@ -18,6 +18,8 @@ class DruidCentralWidget : public QWidget, public Ui::DruidCentralWidget {
 
  private:
   void save();
+  void load();
+  DruidRecipe currentRecipe() const;
 
   DruidTimer _timer;
   DruidVolume _volume;
