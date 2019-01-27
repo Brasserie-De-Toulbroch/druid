@@ -2,6 +2,7 @@
 
 #include <sqlite3.h>
 
+#include <QList>
 #include <QString>
 
 #include "recipe.h"
@@ -16,6 +17,7 @@ class DruidDb {
   bool init() const;
   bool close();
 
+  QList<DruidRecipe> recipes() const;
   DruidRecipe recipe(const QString &title) const;
   bool recipe_exists(const QString &title) const;
   bool recipe_add(const DruidRecipe &recipe) const;

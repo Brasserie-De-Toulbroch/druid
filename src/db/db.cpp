@@ -38,19 +38,14 @@ DruidRecipe DruidDb::recipe(const QString &title) const {
   }
 
   int ret_code = 0;
-  int column = 0;
   while ((ret_code = sqlite3_step(stmt)) == SQLITE_ROW) {
     // title
-    if (column == 0) {
-      const QString title((char *)sqlite3_column_text(stmt, 0));
-      recipe.setTitle(title);
-    }
+    const QString title((char *)sqlite3_column_text(stmt, 0));
+    recipe.setTitle(title);
 
     // notes
-    if (column == 1) {
-      const QString notes((char *)sqlite3_column_text(stmt, 0));
-      recipe.setNotes(notes);
-    }
+    const QString notes((char *)sqlite3_column_text(stmt, 1));
+    recipe.setNotes(notes);
   }
 
   if (ret_code != SQLITE_DONE) {
@@ -60,6 +55,35 @@ DruidRecipe DruidDb::recipe(const QString &title) const {
   sqlite3_finalize(stmt);
 
   return recipe;
+}
+
+QList<DruidRecipe> DruidDb::recipes() const {
+  QList<DruidRecipe> recipes;
+
+  const QString sql = QString("SELECT title, notes FROM %1").arg(_table);
+
+  sqlite3_stmt *stmt;
+  if (sqlite3_prepare_v2(_db, sql.toStdString().c_str(), -1, &stmt, NULL) !=
+      SQLITE_OK) {
+    std::cerr << "ERROR: " << sqlite3_errmsg(_db) << std::endl;
+    sqlite3_finalize(stmt);
+    return QList<DruidRecipe>();
+  }
+
+  int rc;
+  while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
+    DruidRecipe recipe;
+
+    const QString title((char *)sqlite3_column_text(stmt, 0));
+    const QString notes((char *)sqlite3_column_text(stmt, 1));
+
+    recipe.setTitle(title);
+    recipe.setNotes(notes);
+
+    recipes.append(recipe);
+  }
+
+  return recipes;
 }
 
 bool DruidDb::recipe_exists(const QString &title) const {
@@ -78,15 +102,12 @@ bool DruidDb::recipe_exists(const QString &title) const {
 
   int ret_code = 0;
   int column = 0;
-  std::cout << sql.toStdString() << std::endl;
   while ((ret_code = sqlite3_step(stmt)) == SQLITE_ROW) {
     // title
     if (column == 0) {
       exist = true;
     }
   }
-
-  std::cout << exist << std::endl;
 
   if (ret_code != SQLITE_DONE) {
     std::cerr << "ERROR: " << sqlite3_errmsg(_db) << std::endl;

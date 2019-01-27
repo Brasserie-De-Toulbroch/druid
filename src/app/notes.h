@@ -11,4 +11,5 @@ class DruidNotes : public QGroupBox, public Ui::DruidNotes {
   DruidNotes();
 
   QString text() const;
+  void setText(const QString &text);
 };

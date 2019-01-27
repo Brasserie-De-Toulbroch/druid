@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <central_widget.h>
+#include "db_selector.h"
 
 DruidCentralWidget::DruidCentralWidget(const DruidDb* const db) : _db(db) {
   setupUi(this);
@@ -15,7 +16,17 @@ DruidCentralWidget::DruidCentralWidget(const DruidDb* const db) : _db(db) {
   connect(&_menu, &DruidMenu::load, this, &DruidCentralWidget::load);
 }
 
-void DruidCentralWidget::load() {}
+void DruidCentralWidget::load() {
+  DruidDbSelector selector(_db);
+  selector.exec();
+
+  const DruidRecipe recipe = selector.recipe();
+
+  if (recipe.is_valid()) {
+    _title->setText(recipe.title());
+    _notes.setText(recipe.notes());
+  }
+}
 
 void DruidCentralWidget::save() {
   const DruidRecipe recipe = currentRecipe();
