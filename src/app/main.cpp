@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
 
   // open database
   DruidDb db("/tmp/druid.db");
-  if (!db.is_ready()) {
+  if (!db.is_ready() && !db.init()) {
     std::cerr << "Invalid database" << std::endl;
     return true;
   }

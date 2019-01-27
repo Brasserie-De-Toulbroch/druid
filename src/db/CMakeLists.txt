@@ -1,5 +1,6 @@
 set(DRUID_DB_SRCS
     db.cpp
+    recipe.cpp
 )
 
 add_library(druid_db ${DRUID_DB_SRCS})
