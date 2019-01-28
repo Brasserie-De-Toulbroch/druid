@@ -7,6 +7,9 @@ set(DRUID_GUI_SRCS
     notes.cpp
     menu.cpp
     db_selector.cpp
+    mashing.cpp
+    boiling.cpp
+    fermentation.cpp
 )
 
 add_executable(druid ${DRUID_GUI_SRCS} ${PROJECT_SOURCE_DIR}/resources/style.qrc)

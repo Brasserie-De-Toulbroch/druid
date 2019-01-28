@@ -3,7 +3,10 @@
 #include <QPointer>
 #include <QWidget>
 
+#include "boiling.h"
 #include "db/db.h"
+#include "fermentation.h"
+#include "mashing.h"
 #include "menu.h"
 #include "notes.h"
 #include "timer.h"
@@ -25,5 +28,8 @@ class DruidCentralWidget : public QWidget, public Ui::DruidCentralWidget {
   DruidVolume _volume;
   DruidNotes _notes;
   DruidMenu _menu;
+  DruidMashing _mashing;
+  DruidBoiling _boiling;
+  DruidFermentation _fermentation;
   const DruidDb* const _db;
 };

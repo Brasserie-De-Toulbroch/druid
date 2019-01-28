@@ -8,6 +8,10 @@ DruidCentralWidget::DruidCentralWidget(const DruidDb* const db) : _db(db) {
 
   _top_layout->insertWidget(0, &_menu);
 
+  _left_layout->addWidget(&_mashing);
+  _left_layout->addWidget(&_boiling);
+  _left_layout->addWidget(&_fermentation);
+
   _right_layout->addWidget(&_timer);
   _right_layout->addWidget(&_volume);
   _right_layout->addWidget(&_notes);
