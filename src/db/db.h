@@ -14,7 +14,6 @@ class DruidDb {
 
   bool open(const QString &filename);
   bool is_ready() const;
-  bool init() const;
   bool close();
 
   QList<DruidRecipe> recipes() const;
@@ -26,6 +25,9 @@ class DruidDb {
   bool exec(const QString &sql) const;
 
  private:
+  int recipe_id(const QString &title) const;
+  QList<DruidMalt> malts(const QString &title) const;
+
   sqlite3 *_db = nullptr;
   QString _table;
 };

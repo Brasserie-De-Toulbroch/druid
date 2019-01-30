@@ -16,13 +16,6 @@ bool DruidDb::open(const QString &filename) {
   return sqlite3_open(filename.toStdString().c_str(), &_db);
 }
 
-bool DruidDb::init() const {
-  const QString sql =
-      QString("CREATE TABLE %1(title TEXT, notes TEXT);").arg(_table);
-  exec(sql);
-  return is_ready();
-}
-
 DruidRecipe DruidDb::recipe(const QString &title) const {
   DruidRecipe recipe;
 
@@ -41,11 +34,11 @@ DruidRecipe DruidDb::recipe(const QString &title) const {
   while ((ret_code = sqlite3_step(stmt)) == SQLITE_ROW) {
     // title
     const QString title((char *)sqlite3_column_text(stmt, 0));
-    recipe.setTitle(title);
+    recipe.set_title(title);
 
     // notes
     const QString notes((char *)sqlite3_column_text(stmt, 1));
-    recipe.setNotes(notes);
+    recipe.set_notes(notes);
   }
 
   if (ret_code != SQLITE_DONE) {
@@ -53,6 +46,10 @@ DruidRecipe DruidDb::recipe(const QString &title) const {
   }
 
   sqlite3_finalize(stmt);
+
+  for (const auto malt : malts(recipe.title())) {
+    recipe.add_malt(malt);
+  }
 
   return recipe;
 }
@@ -77,8 +74,8 @@ QList<DruidRecipe> DruidDb::recipes() const {
     const QString title((char *)sqlite3_column_text(stmt, 0));
     const QString notes((char *)sqlite3_column_text(stmt, 1));
 
-    recipe.setTitle(title);
-    recipe.setNotes(notes);
+    recipe.set_title(title);
+    recipe.set_notes(notes);
 
     recipes.append(recipe);
   }
@@ -119,7 +116,7 @@ bool DruidDb::recipe_exists(const QString &title) const {
 }
 
 bool DruidDb::recipe_add(const DruidRecipe &recipe) const {
-  const QString sql = QString("INSERT INTO %1 VALUES('%2', '%3')")
+  const QString sql = QString("INSERT INTO(title, notes) %1 VALUES('%2', '%3')")
                           .arg(_table, recipe.title(), recipe.notes());
   exec(sql);
 }
@@ -170,6 +167,70 @@ bool DruidDb::close() {
     sqlite3_close(_db);
     _db = nullptr;
   }
+}
+
+int DruidDb::recipe_id(const QString &title) const {
+  int recipe_id = -1;
+
+  const QString sql =
+      QString("SELECT id FROM %1 where title = '%2'").arg(_table, title);
+
+  sqlite3_stmt *stmt;
+  if (sqlite3_prepare_v2(_db, sql.toStdString().c_str(), -1, &stmt, NULL) !=
+      SQLITE_OK) {
+    std::cerr << "ERROR: " << sqlite3_errmsg(_db) << std::endl;
+    sqlite3_finalize(stmt);
+    return recipe_id;
+  }
+
+  int ret_code = 0;
+  while ((ret_code = sqlite3_step(stmt)) == SQLITE_ROW) {
+    // id
+    recipe_id = sqlite3_column_int(stmt, 0);
+  }
+
+  if (ret_code != SQLITE_DONE) {
+    std::cerr << "ERROR: " << sqlite3_errmsg(_db) << std::endl;
+  }
+
+  sqlite3_finalize(stmt);
+
+  return recipe_id;
+}
+
+QList<DruidMalt> DruidDb::malts(const QString &title) const {
+  QList<DruidMalt> malts;
+
+  const QString sql =
+      QString("SELECT name, ebc, weight FROM %1 where recipe_id = %2")
+          .arg(_table, recipe_id(title));
+
+  sqlite3_stmt *stmt;
+  if (sqlite3_prepare_v2(_db, sql.toStdString().c_str(), -1, &stmt, NULL) !=
+      SQLITE_OK) {
+    std::cerr << "ERROR: " << sqlite3_errmsg(_db) << std::endl;
+    sqlite3_finalize(stmt);
+    return QList<DruidMalt>();
+  }
+
+  int ret_code = 0;
+  while ((ret_code = sqlite3_step(stmt)) == SQLITE_ROW) {
+    // add malt
+    DruidMalt malt;
+    malt.set_name((char *)sqlite3_column_text(stmt, 0));
+    malt.set_ebc(sqlite3_column_int(stmt, 1));
+    malt.set_weight(sqlite3_column_int(stmt, 2));
+
+    malts << malt;
+  }
+
+  if (ret_code != SQLITE_DONE) {
+    std::cerr << "ERROR: " << sqlite3_errmsg(_db) << std::endl;
+  }
+
+  sqlite3_finalize(stmt);
+
+  return malts;
 }
 
 bool DruidDb::exec(const QString &sql) const {

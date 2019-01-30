@@ -45,8 +45,8 @@ void DruidCentralWidget::save() {
 DruidRecipe DruidCentralWidget::currentRecipe() const {
   DruidRecipe recipe;
 
-  recipe.setTitle(_title->text());
-  recipe.setNotes(_notes.text());
+  recipe.set_title(_title->text());
+  recipe.set_notes(_notes.text());
 
   return recipe;
 }

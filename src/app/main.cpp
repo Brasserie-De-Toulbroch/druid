@@ -34,14 +34,14 @@ int main(int argc, char **argv) {
 
   if (database.isEmpty()) {
     print_usage();
-    return 1;
+    exit(EXIT_FAILURE);
   }
 
   // open database
   DruidDb db(database);
-  if (!db.is_ready() && !db.init()) {
+  if (!db.is_ready()) {
     std::cerr << "Invalid database" << std::endl;
-    return true;
+    exit(EXIT_FAILURE);
   }
 
   // init application
@@ -55,6 +55,7 @@ int main(int argc, char **argv) {
     app.setFont(font);
   } else {
     std::cerr << "Unable to set lobster font." << std::endl;
+    exit(EXIT_FAILURE);
   }
 
   // load stylesheet
@@ -65,6 +66,7 @@ int main(int argc, char **argv) {
     app.setStyleSheet(ts.readAll());
   } else {
     std::cerr << "Unable to set stylesheet, file not found." << std::endl;
+    exit(EXIT_FAILURE);
   }
 
   // create main window

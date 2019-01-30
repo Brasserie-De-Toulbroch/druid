@@ -1,6 +1,9 @@
 #pragma once
 
+#include <QList>
 #include <QString>
+
+#include "malt.h"
 
 class DruidRecipe {
  public:
@@ -8,13 +11,17 @@ class DruidRecipe {
 
   bool is_valid() const;
 
-  void setTitle(const QString &title);
+  void set_title(const QString &title);
   QString title() const;
 
-  void setNotes(const QString &notes);
+  void set_notes(const QString &notes);
   QString notes() const;
+
+  void add_malt(const DruidMalt &malt);
+  QList<DruidMalt> malts() const;
 
  private:
   QString _title;
   QString _notes;
+  QList<DruidMalt> _malts;
 };
