@@ -25,6 +25,7 @@ class DruidDb {
   bool exec(const QString &sql) const;
 
  private:
+  void malt_add(int recipe_id, const DruidMalt &malt) const;
   int recipe_id(const QString &title) const;
   QList<DruidMalt> malts(const QString &title) const;
 

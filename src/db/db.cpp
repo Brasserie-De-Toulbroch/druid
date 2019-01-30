@@ -126,24 +126,36 @@ bool DruidDb::recipe_add(const DruidRecipe &recipe) const {
 
   const int id = recipe_id(recipe.title());
   for (const auto malt : recipe.malts()) {
-    if (!malt.is_valid()) {
-      continue;
-    }
-
-    const QString sql =
-        QString(
-            "INSERT INTO malts(recipe_id, name, ebc, weight) VALUES(%1, '%2', "
-            "%3, %4)")
-            .arg(QString::number(id), malt.name(), QString::number(malt.ebc()),
-                 QString::number(malt.weight()));
-    exec(sql);
+    malt_add(id, malt);
   }
 }
 
-bool DruidDb::recipe_update(const DruidRecipe &recipe) const {
-  const QString sql = QString("UPDATE %1 SET notes='%2' WHERE title='%3'")
-                          .arg(_table, recipe.notes(), recipe.title());
+void DruidDb::malt_add(const int recipe_id, const DruidMalt &malt) const {
+  if (!malt.is_valid()) {
+    return;
+  }
+
+  const QString sql =
+      QString(
+          "INSERT INTO malts(recipe_id, name, ebc, weight) VALUES(%1, '%2', "
+          "%3, %4)")
+          .arg(QString::number(recipe_id), malt.name(),
+               QString::number(malt.ebc()), QString::number(malt.weight()));
   exec(sql);
+}
+
+bool DruidDb::recipe_update(const DruidRecipe &recipe) const {
+  QString sql = QString("UPDATE %1 SET notes='%2' WHERE title='%3'")
+                    .arg(_table, recipe.notes(), recipe.title());
+  exec(sql);
+
+  sql = QString("DELETE FROM malts");
+  exec(sql);
+
+  const int id = recipe_id(recipe.title());
+  for (const auto malt : recipe.malts()) {
+    malt_add(id, malt);
+  }
 }
 
 bool DruidDb::is_ready() const {
