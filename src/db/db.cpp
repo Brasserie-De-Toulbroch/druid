@@ -116,9 +116,20 @@ bool DruidDb::recipe_exists(const QString &title) const {
 }
 
 bool DruidDb::recipe_add(const DruidRecipe &recipe) const {
-  const QString sql = QString("INSERT INTO(title, notes) %1 VALUES('%2', '%3')")
+  const QString sql = QString("INSERT INTO %1(title, notes) VALUES('%2', '%3')")
                           .arg(_table, recipe.title(), recipe.notes());
   exec(sql);
+
+  const int id = recipe_id(recipe.title());
+  for (const auto malt : recipe.malts()) {
+    const QString sql =
+        QString(
+            "INSERT INTO malts(recipe_id, name, ebc, weight) VALUES(%1, '%2', "
+            "%3, %4)")
+            .arg(QString::number(id), malt.name(), QString::number(malt.ebc()),
+                 QString::number(malt.weight()));
+    exec(sql);
+  }
 }
 
 bool DruidDb::recipe_update(const DruidRecipe &recipe) const {

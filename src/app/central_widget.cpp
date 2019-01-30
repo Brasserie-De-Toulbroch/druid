@@ -48,5 +48,9 @@ DruidRecipe DruidCentralWidget::currentRecipe() const {
   recipe.set_title(_title->text());
   recipe.set_notes(_notes.text());
 
+  for (const auto malt : _mashing.malts()) {
+    recipe.add_malt(malt);
+  }
+
   return recipe;
 }
