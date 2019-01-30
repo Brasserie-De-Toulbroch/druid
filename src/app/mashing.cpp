@@ -34,3 +34,31 @@ QList<DruidMalt> DruidMashing::malts() const {
 
   return malts;
 }
+
+void DruidMashing::set_malts(const QList<DruidMalt> &malts) {
+  QGridLayout *grid_layout = (QGridLayout *)layout();
+
+  for (int j = 0; j < _malts.size(); j++) {
+    QLineEdit *malt =
+        (QLineEdit *)grid_layout->itemAtPosition(j + 1, 0)->widget();
+    QString malt_str;
+    if (j < malts.size()) {
+      malt_str = malts[j].name();
+    }
+    malt->setText(malt_str);
+
+    QLineEdit *ebc =
+        (QLineEdit *)grid_layout->itemAtPosition(j + 1, 1)->widget();
+    ebc->clear();
+    if (j < malts.size()) {
+      ebc->setText(QString::number(malts[j].ebc()));
+    }
+
+    QLineEdit *weight =
+        (QLineEdit *)grid_layout->itemAtPosition(j + 1, 2)->widget();
+    weight->clear();
+    if (j < malts.size()) {
+      weight->setText(QString::number(malts[j].weight()));
+    }
+  }
+}

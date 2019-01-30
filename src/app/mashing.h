@@ -13,9 +13,10 @@ class DruidMashing : public QGroupBox, public Ui::DruidMashing {
   DruidMashing();
 
   QList<DruidMalt> malts() const;
+  void set_malts(const QList<DruidMalt> &malts);
 
  private:
-  QList<QLineEdit*> _malts;
-  QList<QLineEdit*> _ebc;
-  QList<QLineEdit*> _weight;
+  QList<QLineEdit *> _malts;
+  QList<QLineEdit *> _ebc;
+  QList<QLineEdit *> _weight;
 };

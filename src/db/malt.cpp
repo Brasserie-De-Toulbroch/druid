@@ -14,3 +14,7 @@ void DruidMalt::set_ebc(const int ebc) { _ebc = ebc; }
 int DruidMalt::weight() const { return _weight; }
 
 void DruidMalt::set_weight(const int weight) { _weight = weight; }
+
+bool DruidMalt::is_valid() const {
+  return !_name.isEmpty() && _ebc != 0 && _weight != 0;
+}

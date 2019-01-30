@@ -16,8 +16,10 @@ class DruidMalt {
   int weight() const;
   void set_weight(int weight);
 
+  bool is_valid() const;
+
  private:
   QString _name;
-  int _ebc;
-  int _weight;
+  int _ebc = 0;
+  int _weight = 0;
 };

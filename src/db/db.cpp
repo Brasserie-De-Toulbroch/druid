@@ -77,6 +77,10 @@ QList<DruidRecipe> DruidDb::recipes() const {
     recipe.set_title(title);
     recipe.set_notes(notes);
 
+    for (const auto malt : malts(recipe.title())) {
+      recipe.add_malt(malt);
+    }
+
     recipes.append(recipe);
   }
 
@@ -122,6 +126,10 @@ bool DruidDb::recipe_add(const DruidRecipe &recipe) const {
 
   const int id = recipe_id(recipe.title());
   for (const auto malt : recipe.malts()) {
+    if (!malt.is_valid()) {
+      continue;
+    }
+
     const QString sql =
         QString(
             "INSERT INTO malts(recipe_id, name, ebc, weight) VALUES(%1, '%2', "
@@ -213,13 +221,14 @@ QList<DruidMalt> DruidDb::malts(const QString &title) const {
   QList<DruidMalt> malts;
 
   const QString sql =
-      QString("SELECT name, ebc, weight FROM %1 where recipe_id = %2")
-          .arg(_table, recipe_id(title));
+      QString("SELECT name, ebc, weight FROM malts where recipe_id = %2")
+          .arg(QString::number(recipe_id(title)));
 
   sqlite3_stmt *stmt;
   if (sqlite3_prepare_v2(_db, sql.toStdString().c_str(), -1, &stmt, NULL) !=
       SQLITE_OK) {
-    std::cerr << "ERROR: " << sqlite3_errmsg(_db) << std::endl;
+    std::cerr << "ERROR DruidDb::malts prepare: " << sqlite3_errmsg(_db)
+              << std::endl;
     sqlite3_finalize(stmt);
     return QList<DruidMalt>();
   }
@@ -232,11 +241,14 @@ QList<DruidMalt> DruidDb::malts(const QString &title) const {
     malt.set_ebc(sqlite3_column_int(stmt, 1));
     malt.set_weight(sqlite3_column_int(stmt, 2));
 
-    malts << malt;
+    if (malt.is_valid()) {
+      malts << malt;
+    }
   }
 
   if (ret_code != SQLITE_DONE) {
-    std::cerr << "ERROR: " << sqlite3_errmsg(_db) << std::endl;
+    std::cerr << "ERROR DruidDb::malts step: " << sqlite3_errmsg(_db)
+              << std::endl;
   }
 
   sqlite3_finalize(stmt);

@@ -29,6 +29,7 @@ void DruidCentralWidget::load() {
   if (recipe.is_valid()) {
     _title->setText(recipe.title());
     _notes.setText(recipe.notes());
+    _mashing.set_malts(recipe.malts());
   }
 }
 
