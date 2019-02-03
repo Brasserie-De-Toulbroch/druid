@@ -19,4 +19,7 @@ class DruidMashing : public QGroupBox, public Ui::DruidMashing {
   QList<QLineEdit *> _malts;
   QList<QLineEdit *> _ebc;
   QList<QLineEdit *> _weight;
+  QLabel _tmp;
+  QLabel _vol_water;
+  QLabel _vol_wort;
 };

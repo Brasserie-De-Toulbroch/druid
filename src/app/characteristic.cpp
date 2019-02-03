@@ -9,7 +9,7 @@ DruidCharacteristic::DruidCharacteristic() {
   setupUi(this);
 
   QGridLayout *grid_layout = (QGridLayout *)layout();
-  grid_layout->addWidget(new QLabel("Volume"), 0, 0);
+  grid_layout->addWidget(new QLabel("Final Volume"), 0, 0);
   grid_layout->addWidget(&_volume, 0, 1);
 
   grid_layout->addWidget(new QLabel("EBC"), 1, 0);

@@ -5,7 +5,8 @@ DruidMashing::DruidMashing() {
   setupUi(this);
 
   QGridLayout *grid_layout = (QGridLayout *)layout();
-  for (int j = 0; j < 6; j++) {
+  const int malts = 6;
+  for (int j = 0; j < malts; j++) {
     QLineEdit *malt = new QLineEdit();
     grid_layout->addWidget(malt, j + 1, 0);
     _malts << malt;
@@ -18,6 +19,18 @@ DruidMashing::DruidMashing() {
     grid_layout->addWidget(weight, j + 1, 2);
     _weight << weight;
   }
+
+  QLabel *label_tmp = new QLabel("Temperature");
+  grid_layout->addWidget(label_tmp, malts + 2, 0);
+  grid_layout->addWidget(&_tmp, malts + 2, 1);
+
+  QLabel *label_water = new QLabel("Water Volume");
+  grid_layout->addWidget(label_water, malts + 3, 0);
+  grid_layout->addWidget(&_vol_water, malts + 3, 1);
+
+  QLabel *label_wort = new QLabel("Wort Volume");
+  grid_layout->addWidget(label_wort, malts + 4, 0);
+  grid_layout->addWidget(&_vol_wort, malts + 4, 1);
 }
 
 QList<DruidMalt> DruidMashing::malts() const {
