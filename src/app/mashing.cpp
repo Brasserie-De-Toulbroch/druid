@@ -75,3 +75,21 @@ void DruidMashing::set_malts(const QList<DruidMalt> &malts) {
     }
   }
 }
+
+void DruidMashing::set_temperature(const int temperature) {
+  _tmp.setText(QString::number(temperature));
+}
+
+int DruidMashing::temperature() const { return _tmp.text().toInt(); }
+
+void DruidMashing::set_water_volume(const int volume) {
+  _vol_water.setText(QString::number(volume));
+}
+
+int DruidMashing::water_volume() const { return _vol_water.text().toInt(); }
+
+void DruidMashing::set_wort_volume(const int volume) {
+  _vol_wort.setText(QString::number(volume));
+}
+
+int DruidMashing::wort_volume() const { return _vol_wort.text().toInt(); }

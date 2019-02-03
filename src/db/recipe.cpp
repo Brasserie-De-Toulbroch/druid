@@ -17,3 +17,21 @@ QList<DruidMalt> DruidRecipe::malts() const { return _malts; }
 void DruidRecipe::set_volume(int volume) { _volume = volume; }
 
 int DruidRecipe::volume() const { return _volume; }
+
+void DruidRecipe::set_mashing_water_volume(int volume) {
+  _mashing_water_volume = volume;
+}
+
+int DruidRecipe::mashing_water_volume() const { return _mashing_water_volume; }
+
+void DruidRecipe::set_mashing_temperature(int temp) {
+  _mashing_temperature = temp;
+}
+
+int DruidRecipe::mashing_temperature() const { return _mashing_temperature; }
+
+void DruidRecipe::set_mashing_wort_volume(int volume) {
+  _mashing_wort_volume = volume;
+}
+
+int DruidRecipe::mashing_wort_volume() const { return _mashing_wort_volume; }

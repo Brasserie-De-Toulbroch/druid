@@ -1,7 +1,7 @@
 #! /bin/bash
 
 sqlite3 $1 <<END_SQL
-CREATE TABLE recipes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, notes TEXT, volume INTEGER)
+CREATE TABLE recipes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, notes TEXT, final_vol INTEGER, mashing_water_vol INTEGER, mashing_wort_vol INTEGER, mashing_temp INTEGER)
 END_SQL
 
 sqlite3 $1 <<END_SQL

@@ -23,9 +23,21 @@ class DruidRecipe {
   void set_volume(int volume);
   int volume() const;
 
+  void set_mashing_water_volume(int volume);
+  int mashing_water_volume() const;
+
+  void set_mashing_temperature(int temp);
+  int mashing_temperature() const;
+
+  void set_mashing_wort_volume(int volume);
+  int mashing_wort_volume() const;
+
  private:
   QString _title;
   QString _notes;
   QList<DruidMalt> _malts;
   int _volume;
+  int _mashing_temperature;
+  int _mashing_wort_volume;
+  int _mashing_water_volume;
 };
