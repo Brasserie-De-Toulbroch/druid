@@ -35,3 +35,9 @@ void DruidRecipe::set_mashing_wort_volume(int volume) {
 }
 
 int DruidRecipe::mashing_wort_volume() const { return _mashing_wort_volume; }
+
+void DruidRecipe::set_mashing_duration(const int duration) {
+  _mashing_duration = duration;
+}
+
+int DruidRecipe::mashing_duration() const { return _mashing_duration; }

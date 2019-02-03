@@ -32,6 +32,9 @@ class DruidRecipe {
   void set_mashing_wort_volume(int volume);
   int mashing_wort_volume() const;
 
+  void set_mashing_duration(int duration);
+  int mashing_duration() const;
+
  private:
   QString _title;
   QString _notes;
@@ -40,4 +43,5 @@ class DruidRecipe {
   int _mashing_temperature;
   int _mashing_wort_volume;
   int _mashing_water_volume;
+  int _mashing_duration;
 };

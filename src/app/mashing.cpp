@@ -31,6 +31,10 @@ DruidMashing::DruidMashing() {
   QLabel *label_wort = new QLabel("Wort Volume");
   grid_layout->addWidget(label_wort, malts + 4, 0);
   grid_layout->addWidget(&_vol_wort, malts + 4, 1);
+
+  QLabel *label_duration = new QLabel("Duration");
+  grid_layout->addWidget(label_duration, malts + 5, 0);
+  grid_layout->addWidget(&_duration, malts + 5, 1);
 }
 
 QList<DruidMalt> DruidMashing::malts() const {
@@ -93,3 +97,9 @@ void DruidMashing::set_wort_volume(const int volume) {
 }
 
 int DruidMashing::wort_volume() const { return _vol_wort.text().toInt(); }
+
+void DruidMashing::set_duration(const int duration) {
+  _duration.setText(QString::number(duration));
+}
+
+int DruidMashing::duration() const { return _duration.text().toInt(); }

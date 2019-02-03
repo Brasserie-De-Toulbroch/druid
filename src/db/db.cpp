@@ -80,6 +80,7 @@ QList<DruidRecipe> DruidDb::recipes() const {
     const int mash_water_vol(sqlite3_column_int(stmt, 3));
     const int mash_wort_vol(sqlite3_column_int(stmt, 4));
     const int mash_temp(sqlite3_column_int(stmt, 5));
+    const int mash_duration(sqlite3_column_int(stmt, 6));
 
     recipe.set_title(title);
     recipe.set_notes(notes);
@@ -87,6 +88,7 @@ QList<DruidRecipe> DruidDb::recipes() const {
     recipe.set_mashing_temperature(mash_temp);
     recipe.set_mashing_wort_volume(mash_wort_vol);
     recipe.set_mashing_water_volume(mash_water_vol);
+    recipe.set_mashing_duration(mash_duration);
 
     for (const auto malt : malts(recipe.title())) {
       recipe.add_malt(malt);
@@ -134,12 +136,14 @@ bool DruidDb::recipe_add(const DruidRecipe &recipe) const {
   const QString sql =
       QString(
           "INSERT INTO %1(title, notes, final_vol, mashing_water_vol, "
-          "mashing_wort_vol, mashing_temp) VALUES('%2', '%3', %4, %5, %6, %7)")
+          "mashing_wort_vol, mashing_temp, mashing_duration) VALUES('%2', "
+          "'%3', %4, %5, %6, %7, %8)")
           .arg(_table, recipe.title(), recipe.notes(),
                QString::number(recipe.volume()),
                QString::number(recipe.mashing_water_volume()),
                QString::number(recipe.mashing_wort_volume()),
-               QString::number(recipe.mashing_temperature()));
+               QString::number(recipe.mashing_temperature()),
+               QString::number(recipe.mashing_duration()));
   exec(sql);
 
   const int id = recipe_id(recipe.title());
@@ -166,11 +170,13 @@ bool DruidDb::recipe_update(const DruidRecipe &recipe) const {
   QString sql =
       QString(
           "UPDATE %1 SET notes='%2', final_vol=%3, mashing_water_vol=%4, "
-          "mashing_wort_vol=%5, mashing_temp=%6 WHERE title='%7'")
+          "mashing_wort_vol=%5, mashing_temp=%6, mashing_duration=%7 WHERE "
+          "title='%8'")
           .arg(_table, recipe.notes(), QString::number(recipe.volume()),
                QString::number(recipe.mashing_water_volume()),
                QString::number(recipe.mashing_wort_volume()),
-               QString::number(recipe.mashing_temperature()), recipe.title());
+               QString::number(recipe.mashing_temperature()),
+               QString::number(recipe.mashing_duration()), recipe.title());
   exec(sql);
 
   sql = QString("DELETE FROM malts");

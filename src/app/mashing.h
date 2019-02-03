@@ -24,6 +24,9 @@ class DruidMashing : public QGroupBox, public Ui::DruidMashing {
   void set_wort_volume(int volume);
   int wort_volume() const;
 
+  void set_duration(int duration);
+  int duration() const;
+
  private:
   QList<QLineEdit *> _malts;
   QList<QLineEdit *> _ebc;
@@ -31,4 +34,5 @@ class DruidMashing : public QGroupBox, public Ui::DruidMashing {
   QLineEdit _tmp;
   QLineEdit _vol_water;
   QLineEdit _vol_wort;
+  QLineEdit _duration;
 };
