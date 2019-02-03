@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DruidFermentation</class>
- <widget class="QGroupBox" name="DruidFermentation">
+ <class>DruidCharacteristic</class>
+ <widget class="QGroupBox" name="DruidCharacteristic">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,12 +14,9 @@
    <string>GroupBox</string>
   </property>
   <property name="title">
-   <string>Fermentation</string>
+   <string>Characteristic</string>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <property name="fieldGrowthPolicy">
-    <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-   </property>
+  <layout class="QGridLayout" name="gridLayout">
    <property name="topMargin">
     <number>40</number>
    </property>

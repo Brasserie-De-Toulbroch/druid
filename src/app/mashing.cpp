@@ -5,7 +5,7 @@ DruidMashing::DruidMashing() {
   setupUi(this);
 
   QGridLayout *grid_layout = (QGridLayout *)layout();
-  for (int j = 0; j < 4; j++) {
+  for (int j = 0; j < 6; j++) {
     QLineEdit *malt = new QLineEdit();
     grid_layout->addWidget(malt, j + 1, 0);
     _malts << malt;

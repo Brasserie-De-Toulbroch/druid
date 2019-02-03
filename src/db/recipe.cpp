@@ -13,3 +13,7 @@ QString DruidRecipe::notes() const { return _notes; }
 void DruidRecipe::add_malt(const DruidMalt &malt) { _malts.append(malt); }
 
 QList<DruidMalt> DruidRecipe::malts() const { return _malts; }
+
+void DruidRecipe::set_volume(int volume) { _volume = volume; }
+
+int DruidRecipe::volume() const { return _volume; }

@@ -20,8 +20,12 @@ class DruidRecipe {
   void add_malt(const DruidMalt &malt);
   QList<DruidMalt> malts() const;
 
+  void set_volume(int volume);
+  int volume() const;
+
  private:
   QString _title;
   QString _notes;
   QList<DruidMalt> _malts;
+  int _volume;
 };

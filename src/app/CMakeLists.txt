@@ -10,6 +10,7 @@ set(DRUID_GUI_SRCS
     mashing.cpp
     boiling.cpp
     fermentation.cpp
+    characteristic.cpp
 )
 
 add_executable(druid ${DRUID_GUI_SRCS} ${PROJECT_SOURCE_DIR}/resources/style.qrc)

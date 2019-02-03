@@ -13,11 +13,14 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,1" columnminimumwidth="1,1">
+  <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,1,1" columnminimumwidth="1,1,0">
+   <property name="horizontalSpacing">
+    <number>6</number>
+   </property>
    <item row="4" column="0">
-    <layout class="QVBoxLayout" name="_left_layout" stretch=""/>
+    <layout class="QVBoxLayout" name="_left_layout"/>
    </item>
-   <item row="0" column="0" colspan="2">
+   <item row="0" column="0" colspan="3">
     <layout class="QHBoxLayout" name="_top_layout">
      <property name="topMargin">
       <number>0</number>
@@ -37,10 +40,10 @@
      </item>
     </layout>
    </item>
-   <item row="4" column="1">
+   <item row="4" column="2">
     <layout class="QVBoxLayout" name="_right_layout"/>
    </item>
-   <item row="2" column="0" colspan="2">
+   <item row="2" column="0" colspan="3">
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <property name="topMargin">
       <number>0</number>
@@ -84,6 +87,9 @@
       </spacer>
      </item>
     </layout>
+   </item>
+   <item row="4" column="1">
+    <layout class="QVBoxLayout" name="_mid_layout"/>
    </item>
   </layout>
  </widget>

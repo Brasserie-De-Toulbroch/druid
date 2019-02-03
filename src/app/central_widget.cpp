@@ -1,7 +1,8 @@
 #include <iostream>
 
-#include <central_widget.h>
+#include "central_widget.h"
 #include "db_selector.h"
+#include "utils/ebc_colors.h"
 
 DruidCentralWidget::DruidCentralWidget(const DruidDb* const db) : _db(db) {
   setupUi(this);
@@ -10,7 +11,9 @@ DruidCentralWidget::DruidCentralWidget(const DruidDb* const db) : _db(db) {
 
   _left_layout->addWidget(&_mashing);
   _left_layout->addWidget(&_boiling);
-  _left_layout->addWidget(&_fermentation);
+
+  _mid_layout->addWidget(&_fermentation);
+  _mid_layout->addWidget(&_characteristic);
 
   _right_layout->addWidget(&_timer);
   _right_layout->addWidget(&_volume);
@@ -18,6 +21,8 @@ DruidCentralWidget::DruidCentralWidget(const DruidDb* const db) : _db(db) {
 
   connect(&_menu, &DruidMenu::save, this, &DruidCentralWidget::save);
   connect(&_menu, &DruidMenu::load, this, &DruidCentralWidget::load);
+  connect(&_characteristic, &DruidCharacteristic::update_ebc, this,
+          &DruidCentralWidget::update_ebc);
 }
 
 void DruidCentralWidget::load() {
@@ -30,6 +35,9 @@ void DruidCentralWidget::load() {
     _title->setText(recipe.title());
     _notes.setText(recipe.notes());
     _mashing.set_malts(recipe.malts());
+    _characteristic.set_volume(recipe.volume());
+
+    update_ebc();
   }
 }
 
@@ -48,10 +56,17 @@ DruidRecipe DruidCentralWidget::currentRecipe() const {
 
   recipe.set_title(_title->text());
   recipe.set_notes(_notes.text());
+  recipe.set_volume(_characteristic.volume());
 
   for (const auto malt : _mashing.malts()) {
     recipe.add_malt(malt);
   }
 
   return recipe;
+}
+
+void DruidCentralWidget::update_ebc() {
+  const float ebc =
+      DruidUtils::to_ebc(currentRecipe().malts(), _characteristic.volume());
+  _characteristic.set_ebc(ebc);
 }

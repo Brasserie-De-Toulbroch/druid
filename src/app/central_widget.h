@@ -4,6 +4,7 @@
 #include <QWidget>
 
 #include "boiling.h"
+#include "characteristic.h"
 #include "db/db.h"
 #include "fermentation.h"
 #include "mashing.h"
@@ -22,6 +23,7 @@ class DruidCentralWidget : public QWidget, public Ui::DruidCentralWidget {
  private:
   void save();
   void load();
+  void update_ebc();
   DruidRecipe currentRecipe() const;
 
   DruidTimer _timer;
@@ -31,5 +33,6 @@ class DruidCentralWidget : public QWidget, public Ui::DruidCentralWidget {
   DruidMashing _mashing;
   DruidBoiling _boiling;
   DruidFermentation _fermentation;
+  DruidCharacteristic _characteristic;
   const DruidDb* const _db;
 };
