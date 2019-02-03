@@ -13,18 +13,24 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,1,1" columnminimumwidth="1,1,0">
+  <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,1,1">
+   <property name="rightMargin">
+    <number>90</number>
+   </property>
    <property name="horizontalSpacing">
     <number>6</number>
    </property>
-   <item row="4" column="0">
+   <item row="2" column="0">
     <layout class="QVBoxLayout" name="_left_layout"/>
    </item>
-   <item row="0" column="0" colspan="3">
+   <item row="2" column="2">
+    <layout class="QVBoxLayout" name="_right_layout"/>
+   </item>
+   <item row="2" column="1">
+    <layout class="QVBoxLayout" name="_mid_layout"/>
+   </item>
+   <item row="0" column="0">
     <layout class="QHBoxLayout" name="_top_layout">
-     <property name="topMargin">
-      <number>0</number>
-     </property>
      <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
@@ -40,14 +46,8 @@
      </item>
     </layout>
    </item>
-   <item row="4" column="2">
-    <layout class="QVBoxLayout" name="_right_layout"/>
-   </item>
-   <item row="2" column="0" colspan="3">
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <property name="topMargin">
-      <number>0</number>
-     </property>
+   <item row="0" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <spacer name="horizontalSpacer_3">
        <property name="orientation">
@@ -65,14 +65,28 @@
       <widget class="QLineEdit" name="_title">
        <property name="font">
         <font>
-         <pointsize>30</pointsize>
+         <pointsize>20</pointsize>
         </font>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
+     <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -87,9 +101,6 @@
       </spacer>
      </item>
     </layout>
-   </item>
-   <item row="4" column="1">
-    <layout class="QVBoxLayout" name="_mid_layout"/>
    </item>
   </layout>
  </widget>
