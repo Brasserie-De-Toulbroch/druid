@@ -40,6 +40,7 @@ void DruidCentralWidget::load() {
     _mashing.set_temperature(recipe.mashing_temperature());
     _mashing.set_duration(recipe.mashing_duration());
     _characteristic.set_volume(recipe.volume());
+    _fermentation.set_yeast(recipe.yeast());
 
     update_ebc();
   }
@@ -65,6 +66,7 @@ DruidRecipe DruidCentralWidget::currentRecipe() const {
   recipe.set_mashing_wort_volume(_mashing.wort_volume());
   recipe.set_mashing_water_volume(_mashing.water_volume());
   recipe.set_mashing_duration(_mashing.duration());
+  recipe.set_yeast(_fermentation.yeast());
 
   for (const auto malt : _mashing.malts()) {
     recipe.add_malt(malt);

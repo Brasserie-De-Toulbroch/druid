@@ -41,3 +41,7 @@ void DruidRecipe::set_mashing_duration(const int duration) {
 }
 
 int DruidRecipe::mashing_duration() const { return _mashing_duration; }
+
+void DruidRecipe::set_yeast(const QString &yeast) { _yeast = yeast; }
+
+QString DruidRecipe::yeast() const { return _yeast; }

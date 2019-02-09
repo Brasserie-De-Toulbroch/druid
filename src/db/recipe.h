@@ -35,6 +35,9 @@ class DruidRecipe {
   void set_mashing_duration(int duration);
   int mashing_duration() const;
 
+  void set_yeast(const QString &yeast);
+  QString yeast() const;
+
  private:
   QString _title;
   QString _notes;
@@ -44,4 +47,5 @@ class DruidRecipe {
   int _mashing_wort_volume;
   int _mashing_water_volume;
   int _mashing_duration;
+  QString _yeast;
 };

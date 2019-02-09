@@ -57,10 +57,11 @@ DruidRecipe DruidDb::recipe(const QString &title) const {
 QList<DruidRecipe> DruidDb::recipes() const {
   QList<DruidRecipe> recipes;
 
-  const QString sql = QString(
-                          "SELECT title, notes, final_vol, mashing_water_vol, "
-                          "mashing_wort_vol, mashing_temp FROM %1")
-                          .arg(_table);
+  const QString sql =
+      QString(
+          "SELECT title, notes, final_vol, mashing_water_vol, "
+          "mashing_wort_vol, mashing_temp, mashing_duration, yeast FROM %1")
+          .arg(_table);
 
   sqlite3_stmt *stmt;
   if (sqlite3_prepare_v2(_db, sql.toStdString().c_str(), -1, &stmt, NULL) !=
@@ -81,6 +82,7 @@ QList<DruidRecipe> DruidDb::recipes() const {
     const int mash_wort_vol(sqlite3_column_int(stmt, 4));
     const int mash_temp(sqlite3_column_int(stmt, 5));
     const int mash_duration(sqlite3_column_int(stmt, 6));
+    const QString yeast((char *)sqlite3_column_text(stmt, 7));
 
     recipe.set_title(title);
     recipe.set_notes(notes);
@@ -89,6 +91,7 @@ QList<DruidRecipe> DruidDb::recipes() const {
     recipe.set_mashing_wort_volume(mash_wort_vol);
     recipe.set_mashing_water_volume(mash_water_vol);
     recipe.set_mashing_duration(mash_duration);
+    recipe.set_yeast(yeast);
 
     for (const auto malt : malts(recipe.title())) {
       recipe.add_malt(malt);
@@ -136,14 +139,14 @@ bool DruidDb::recipe_add(const DruidRecipe &recipe) const {
   const QString sql =
       QString(
           "INSERT INTO %1(title, notes, final_vol, mashing_water_vol, "
-          "mashing_wort_vol, mashing_temp, mashing_duration) VALUES('%2', "
-          "'%3', %4, %5, %6, %7, %8)")
+          "mashing_wort_vol, mashing_temp, mashing_duration, yeast) "
+          "VALUES('%2', '%3', %4, %5, %6, %7, %8, '%9')")
           .arg(_table, recipe.title(), recipe.notes(),
                QString::number(recipe.volume()),
                QString::number(recipe.mashing_water_volume()),
                QString::number(recipe.mashing_wort_volume()),
                QString::number(recipe.mashing_temperature()),
-               QString::number(recipe.mashing_duration()));
+               QString::number(recipe.mashing_duration()), recipe.yeast());
   exec(sql);
 
   const int id = recipe_id(recipe.title());
@@ -170,13 +173,15 @@ bool DruidDb::recipe_update(const DruidRecipe &recipe) const {
   QString sql =
       QString(
           "UPDATE %1 SET notes='%2', final_vol=%3, mashing_water_vol=%4, "
-          "mashing_wort_vol=%5, mashing_temp=%6, mashing_duration=%7 WHERE "
-          "title='%8'")
+          "mashing_wort_vol=%5, mashing_temp=%6, mashing_duration=%7, "
+          "yeast='%8' WHERE "
+          "title='%9'")
           .arg(_table, recipe.notes(), QString::number(recipe.volume()),
                QString::number(recipe.mashing_water_volume()),
                QString::number(recipe.mashing_wort_volume()),
                QString::number(recipe.mashing_temperature()),
-               QString::number(recipe.mashing_duration()), recipe.title());
+               QString::number(recipe.mashing_duration()), recipe.yeast(),
+               recipe.title());
   exec(sql);
 
   sql = QString("DELETE FROM malts");
