@@ -1,11 +1,45 @@
-#include <temperature.h>
+#include <QColor>
+#include <QPen>
+#include <QTimer>
 
-#include <QwtPlotCurve>
+#include <temperature.h>
 
 DruidTemperature::DruidTemperature() {
   setupUi(this);
-  // _chart->legend()->hide();
-  // _chart->addSeries(_series);
-  // _chart->createDefaultAxes();
-  // _chart->setTitle("");
+
+  _plot.setAxisScale(QwtPlot::yLeft, 0.0, 100.0);
+  QPen pen;
+  pen.setWidth(3);
+  pen.setColor(QColor(23, 154, 224));
+  _curve.setPen(pen);
+  _curve.setRenderHint(QwtPlotItem::RenderAntialiased, true);
+  _curve.attach(&_plot);
+  _top_layout->addWidget(&_plot);
+
+  connect(_start, &QPushButton::clicked, this, &DruidTemperature::start);
+  connect(_stop, &QPushButton::clicked, this, &DruidTemperature::stop);
+}
+
+void DruidTemperature::start() {
+  QTimer::singleShot(1000, this, &DruidTemperature::update);
+  _timer_stop = false;
+}
+
+void DruidTemperature::update() {
+  if (!_timer_stop) {
+    QTimer::singleShot(1000, this, &DruidTemperature::update);
+
+    const float temperature = _values.size();
+    _lcd->display(QString::number(temperature));
+    const QPointF value(_values.size(), temperature);
+    _values.push_back(value);
+    _curve.setSamples(_values);
+    _plot.replot();
+  }
+}
+
+void DruidTemperature::stop() {
+  _timer_stop = true;
+  _values.clear();
+  _lcd->display(QString::number(0));
 }

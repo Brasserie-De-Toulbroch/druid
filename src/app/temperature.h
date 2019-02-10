@@ -1,6 +1,10 @@
 #pragma once
 
 #include <QGroupBox>
+#include <QPointF>
+#include <QVector>
+#include <QwtPlot>
+#include <QwtPlotCurve>
 
 #include "ui_temperature.h"
 
@@ -11,6 +15,12 @@ class DruidTemperature : public QGroupBox, public Ui::DruidTemperature {
   DruidTemperature();
 
  private:
-  // QLineSeries series;
-  // QChart _chart;
+  void start();
+  void stop();
+  void update();
+
+  QwtPlot _plot;
+  QwtPlotCurve _curve;
+  bool _timer_stop = false;
+  QVector<QPointF> _values;
 };
