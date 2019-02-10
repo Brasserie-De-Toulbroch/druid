@@ -3,13 +3,7 @@
 #include <QPointer>
 #include <QWidget>
 
-#include "boiling.h"
-#include "characteristic.h"
-#include "db/db.h"
-#include "fermentation.h"
-#include "mashing.h"
-#include "menu.h"
-#include "notes.h"
+#include "temperature.h"
 #include "timer.h"
 #include "ui_central_widget.h"
 #include "volume.h"
@@ -18,21 +12,10 @@ class DruidCentralWidget : public QWidget, public Ui::DruidCentralWidget {
   Q_OBJECT
 
  public:
-  DruidCentralWidget(const DruidDb* const db);
+  DruidCentralWidget();
 
  private:
-  void save();
-  void load();
-  void update_ebc();
-  DruidRecipe currentRecipe() const;
-
   DruidTimer _timer;
   DruidVolume _volume;
-  DruidNotes _notes;
-  DruidMenu _menu;
-  DruidMashing _mashing;
-  DruidBoiling _boiling;
-  DruidFermentation _fermentation;
-  DruidCharacteristic _characteristic;
-  const DruidDb* const _db;
+  DruidTemperature _temperature;
 };

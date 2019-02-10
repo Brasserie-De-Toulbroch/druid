@@ -58,7 +58,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="2" rowspan="4">
+   <item row="3" column="0">
     <widget class="QLCDNumber" name="_lcd"/>
    </item>
   </layout>

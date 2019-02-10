@@ -1,5 +1,3 @@
-#include <getopt.h>
-
 #include <iostream>
 
 #include <QApplication>
@@ -9,41 +7,7 @@
 
 #include <window.h>
 
-void print_usage() { std::cout << "Usage: druid -d filename" << std::endl; }
-
 int main(int argc, char **argv) {
-  // parse command line options
-  int opt = 0;
-  QString database;
-
-  static struct option long_options[] = {{"db", required_argument, 0, 'd'},
-                                         {0, 0, 0, 0}};
-
-  int long_index = 0;
-  while ((opt = getopt_long(argc, argv, "d:", long_options, &long_index)) !=
-         -1) {
-    switch (opt) {
-      case 'd':
-        database = QString(optarg);
-        break;
-      default:
-        print_usage();
-        exit(EXIT_FAILURE);
-    }
-  }
-
-  if (database.isEmpty()) {
-    print_usage();
-    exit(EXIT_FAILURE);
-  }
-
-  // open database
-  DruidDb db(database);
-  if (!db.is_ready()) {
-    std::cerr << "Invalid database" << std::endl;
-    exit(EXIT_FAILURE);
-  }
-
   // init application
   QApplication app(argc, argv);
 
@@ -70,7 +34,7 @@ int main(int argc, char **argv) {
   }
 
   // create main window
-  DruidWindow window(&db);
+  DruidWindow window;
   window.show();
 
   return app.exec();
