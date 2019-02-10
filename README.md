@@ -19,6 +19,6 @@ Cross-compiling for RPI3 with [buildroot-rpi3](https://github.com/Brasserie-De-T
 ````
 $ mkdir build
 $ cd build
-$ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-toolchain.cmake
+$ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-toolchain.cmake ..
 $ make
 ````

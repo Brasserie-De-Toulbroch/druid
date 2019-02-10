@@ -1,10 +1,10 @@
 #pragma once
 
+#include <qwt_plot.h>
+#include <qwt_plot_curve.h>
 #include <QGroupBox>
 #include <QPointF>
 #include <QVector>
-#include <QwtPlot>
-#include <QwtPlotCurve>
 
 #include "ui_temperature.h"
 
