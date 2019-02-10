@@ -42,4 +42,6 @@ void DruidTemperature::stop() {
   _timer_stop = true;
   _values.clear();
   _lcd->display(QString::number(0));
+  _curve.setSamples(_values);
+  _plot.replot();
 }
