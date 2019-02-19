@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>394</width>
-    <height>163</height>
+    <height>182</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,12 +28,12 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QDoubleSpinBox" name="_height_fermentor"/>
+    <widget class="QDoubleSpinBox" name="_value_fermentor"/>
    </item>
    <item row="2" column="2">
-    <widget class="QPushButton" name="_compute_fermentor">
+    <widget class="QPushButton" name="_fermentor_to_volume">
      <property name="text">
-      <string>Compute</string>
+      <string>To Liter</string>
      </property>
     </widget>
    </item>
@@ -45,17 +45,17 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QDoubleSpinBox" name="_height_boiler"/>
+    <widget class="QDoubleSpinBox" name="_value_boiler"/>
    </item>
    <item row="3" column="2">
-    <widget class="QPushButton" name="_compute_boiler">
+    <widget class="QPushButton" name="_boiler_to_volume">
      <property name="text">
-      <string>Compute</string>
+      <string>To Liter</string>
      </property>
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QDoubleSpinBox" name="_height_sterilizer"/>
+    <widget class="QDoubleSpinBox" name="_value_sterilizer"/>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_5">
@@ -65,14 +65,35 @@
     </widget>
    </item>
    <item row="1" column="2">
-    <widget class="QPushButton" name="_compute_sterilizer">
+    <widget class="QPushButton" name="_sterilizer_to_volume">
      <property name="text">
-      <string>Compute</string>
+      <string>To Liter</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="3">
+   <item row="1" column="3">
+    <widget class="QPushButton" name="_sterilizer_to_height">
+     <property name="text">
+      <string>To Height</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="4">
     <widget class="QLCDNumber" name="_lcd"/>
+   </item>
+   <item row="2" column="3">
+    <widget class="QPushButton" name="_fermentor_to_height">
+     <property name="text">
+      <string>To Height</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QPushButton" name="_boiler_to_height">
+     <property name="text">
+      <string>To Height</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
