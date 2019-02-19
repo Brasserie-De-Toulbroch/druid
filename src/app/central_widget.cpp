@@ -9,3 +9,7 @@ DruidCentralWidget::DruidCentralWidget() {
   _bottom_layout->addWidget(&_timer);
   _bottom_layout->addWidget(&_volume);
 }
+
+DruidTemperature* DruidCentralWidget::temperature_widget() {
+  return &_temperature;
+}

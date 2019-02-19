@@ -29,8 +29,12 @@ void DruidTemperature::update() {
   if (!_timer_stop) {
     QTimer::singleShot(1000, this, &DruidTemperature::update);
 
-    const float temperature = _values.size();
+    float temperature = 0.0;
+    if (_sensor) {
+      temperature = _sensor->temperature();
+    }
     _lcd->display(QString::number(temperature));
+
     const QPointF value(_values.size(), temperature);
     _values.push_back(value);
     _curve.setSamples(_values);
@@ -45,3 +49,5 @@ void DruidTemperature::stop() {
   _curve.setSamples(_values);
   _plot.replot();
 }
+
+void DruidTemperature::set_sensor(const DS18B20 *sensor) { _sensor = sensor; }

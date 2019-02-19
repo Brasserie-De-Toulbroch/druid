@@ -14,6 +14,8 @@ class DruidCentralWidget : public QWidget, public Ui::DruidCentralWidget {
  public:
   DruidCentralWidget();
 
+  DruidTemperature* temperature_widget();
+
  private:
   DruidTimer _timer;
   DruidVolume _volume;

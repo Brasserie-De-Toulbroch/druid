@@ -6,6 +6,7 @@
 #include <QPointF>
 #include <QVector>
 
+#include "ds18b20/ds18b20.h"
 #include "ui_temperature.h"
 
 class DruidTemperature : public QGroupBox, public Ui::DruidTemperature {
@@ -13,6 +14,7 @@ class DruidTemperature : public QGroupBox, public Ui::DruidTemperature {
 
  public:
   DruidTemperature();
+  void set_sensor(const DS18B20 *sensor);
 
  private:
   void start();
@@ -23,4 +25,5 @@ class DruidTemperature : public QGroupBox, public Ui::DruidTemperature {
   QwtPlotCurve _curve;
   bool _timer_stop = false;
   QVector<QPointF> _values;
+  const DS18B20 *_sensor = nullptr;
 };
