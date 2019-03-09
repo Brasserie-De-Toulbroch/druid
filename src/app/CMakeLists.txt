@@ -13,3 +13,5 @@ include_directories(${PROJECT_SOURCE_DIR}/src/
     ${PROJECT_SOURCE_DIR}/src/dev/
 )
 target_link_libraries(druid Qt5::Widgets ${QWT_LIBRARY} ds18b20)
+
+install(TARGETS druid DESTINATION bin)
