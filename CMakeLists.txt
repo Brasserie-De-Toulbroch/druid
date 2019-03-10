@@ -12,8 +12,6 @@ set(CMAKE_AUTOUIC ON)
 find_package(Qt5Widgets CONFIG REQUIRED)
 find_package(Qt5Test REQUIRED)
 find_package(Qwt REQUIRED)
-
-enable_testing(true)
+find_package(Bard REQUIRED)
 
 add_subdirectory(src)
-add_subdirectory(tests)

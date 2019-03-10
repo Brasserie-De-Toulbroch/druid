@@ -10,8 +10,9 @@ set(DRUID_GUI_SRCS
 add_executable(druid ${DRUID_GUI_SRCS} ${PROJECT_SOURCE_DIR}/resources/style.qrc)
 include_directories(${PROJECT_SOURCE_DIR}/src/
     ${QWT_INCLUDE_DIR}
+    ${BARD_INCLUDE_DIR}
     ${PROJECT_SOURCE_DIR}/src/dev/
 )
-target_link_libraries(druid Qt5::Widgets ${QWT_LIBRARY} ds18b20)
+target_link_libraries(druid Qt5::Widgets ${QWT_LIBRARY} ${BARD_LIBRARY})
 
 install(TARGETS druid DESTINATION bin)

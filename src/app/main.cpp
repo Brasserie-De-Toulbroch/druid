@@ -8,7 +8,7 @@
 #include <QTextStream>
 
 #include <window.h>
-#include "ds18b20/ds18b20.h"
+#include "ds18b20.h"
 
 int main(int argc, char **argv) {
   // parse command line options
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
   DruidWindow window;
 
   if (!ds18b20_id.isEmpty()) {
-    DS18B20 sensor(ds18b20_id);
+    bard::DS18B20 sensor(ds18b20_id.toStdString());
     DruidCentralWidget *widget =
         qobject_cast<DruidCentralWidget *>(window.centralWidget());
     widget->temperature_widget()->set_sensor(&sensor);

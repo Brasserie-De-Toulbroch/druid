@@ -50,4 +50,6 @@ void DruidTemperature::stop() {
   _plot.replot();
 }
 
-void DruidTemperature::set_sensor(const DS18B20 *sensor) { _sensor = sensor; }
+void DruidTemperature::set_sensor(const bard::DS18B20 *sensor) {
+  _sensor = sensor;
+}
