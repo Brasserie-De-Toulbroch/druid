@@ -35,7 +35,11 @@
     </widget>
    </item>
    <item row="1" column="2">
-    <widget class="QLCDNumber" name="_lcd"/>
+    <widget class="QLCDNumber" name="_lcd">
+     <property name="numDigits">
+      <number>6</number>
+     </property>
+    </widget>
    </item>
    <item row="0" column="0" colspan="3">
     <layout class="QHBoxLayout" name="_top_layout"/>
