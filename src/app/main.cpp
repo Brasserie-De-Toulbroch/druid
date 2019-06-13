@@ -58,12 +58,11 @@ int main(int argc, char **argv) {
   // create main window
   DruidWindow window;
 
-  if (!ds18b20_id.isEmpty()) {
-    bard::DS18B20 sensor(ds18b20_id.toStdString());
-    DruidCentralWidget *widget =
-        qobject_cast<DruidCentralWidget *>(window.centralWidget());
-    widget->temperature_widget()->set_sensor(&sensor);
-  }
+  // set DS18B20 sensor
+  bard::DS18B20 sensor(ds18b20_id.toStdString());
+  DruidCentralWidget *widget =
+      qobject_cast<DruidCentralWidget *>(window.centralWidget());
+  widget->temperature_widget()->set_sensor(&sensor);
 
   window.show();
 
